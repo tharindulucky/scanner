@@ -10,28 +10,32 @@ function HTTPGet($url, array $params) {
 }
 
 function HTTPPost($url, array $params, $sessionId) {
-    $query = http_build_query($params);
+    //$query = http_build_query($params);
     $ch    = curl_init();
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, false);
-    \curl_setopt($ch, CURLOPT_HTTPHEADER, array( 'SessionId: '.$sessionId,  ));
+    \curl_setopt($ch, CURLOPT_HTTPHEADER, array( 'SessionId: '.$sessionId));
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
     $response = curl_exec($ch);
     curl_close($ch);
+
     return $response;
 }
 
 function HTTPPut($url, array $params, $sessionId) {
+
+    $payload = json_encode($params);
+
     $query = \http_build_query($params);
     $ch    = \curl_init();
     \curl_setopt($ch, \CURLOPT_RETURNTRANSFER, true);
     \curl_setopt($ch, \CURLOPT_HEADER, 1);
-    \curl_setopt($ch, CURLOPT_HTTPHEADER, array( 'SessionId: '.$sessionId,  ));
+    \curl_setopt($ch, CURLOPT_HTTPHEADER, array( 'SessionId: '.$sessionId, 'Content-Type: application/json', 'Content-Length: ' . strlen($payload) ));
     \curl_setopt($ch, \CURLOPT_URL, $url);
     \curl_setopt($ch, \CURLOPT_CUSTOMREQUEST, 'PUT');
-    \curl_setopt($ch, \CURLOPT_POSTFIELDS, $query);
+    \curl_setopt($ch, \CURLOPT_POSTFIELDS, $payload);
     $response = \curl_exec($ch);
     \curl_close($ch);
     return $response;

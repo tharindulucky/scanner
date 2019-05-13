@@ -3,6 +3,11 @@
 require_once 'functions.php';
 
 $session_id = $_GET['SessionId'];
+$file_name = $_GET['file_name'];
+
+$mode = $_GET['mode'] ?? 1;
+
+
 
 $url = 'http://'.$scanner_ip_addr.'/api/session?SessionId='.$session_id;
 
@@ -39,7 +44,7 @@ echo $session_id."<br>";
 
     <div class="row">
         <div class="col-md-12">
-            <a href="image.php?SessionId=<?php echo $session_id; ?>" onclick="window.top.close();"  class="btn btn-primary btn-block btn-lg">Save</a>
+            <a href="image.php?SessionId=<?php echo $session_id; ?>&file_name=<?php echo $file_name; ?>&mode=<?php echo $mode; ?>"  class="btn btn-primary btn-block btn-lg" >Save</a>
         </div>
     </div>
 
@@ -47,7 +52,7 @@ echo $session_id."<br>";
 
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12" align="center">
-            <a href="cancel.php?SessionId=<?php echo $session_id; ?>" class="btn btn-danger btn-lg">Cancel</a>
+            <a href="cancel.php?SessionId=<?php echo $session_id; ?>" class="btn btn-danger btn-lg" onclick="window.top.close();">Cancel</a>
         </div>
     </div>
 </div>
