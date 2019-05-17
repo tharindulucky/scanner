@@ -11,8 +11,8 @@ $mode = $_GET['mode'] ?? 1;
 
 if($mode == 1){
     $scannedImage = HTTPGet($url, ['SessionId' => $_GET['SessionId']]);
-    header('Content-Type: image/jpeg');
-    header("Content-Length: 484568" );
+    //header('Content-Type: image/jpeg');
+    //header("Content-Length: 484568" );
 
     $new_file = $file_name.'.jpg';
     file_put_contents('C:\APPL\scans\\'.$new_file, $scannedImage);
